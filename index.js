@@ -16,12 +16,14 @@ app.use((req, res, next) => {
 	res.header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 	next();
 });
+app.use(express.static(__dirname + '/views'));
 
-app.set('view engine', 'ejs');
+//app.set('view engine', 'ejs');
+//app.set('views', "./views");
 app.set('port', (process.env.PORT || 5000));
 
 app.get('/', (request, response) => {
-	response.json({});
+	response.sendFile("index.html");
 });
 
 // user access
