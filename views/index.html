@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+</head>
+
+<body>
+<div class="container">
+	<div class="row">
+		<form class="col s12" id="form">
+			<div class="row">
+				<div class="input-field col s12">
+					<input id="name" type="text" oninput="getFolders(this.value)">
+				 	<label for="name">Name</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12">
+				  	<input id="folder" type="text" class="autocomplete">
+				  	<label for="folder">Folder</label>
+				</div>
+			</div>
+		  	<div class="row">
+				<div class="input-field col s12">
+			  		<input id="link" type="text">
+			  		<label for="link">Link</label>
+				</div>
+			</div>
+			<button class="btn waves-effect waves-light" type="submit" >Submit</button>
+
+		</form>
+	</div>
+</div>
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"
+  	  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  	  crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+	<script type="text/javascript">
+		var folders = {};
+		var getFolders = function(value) {
+			if (!value) {
+				return;
+			}
+			$.get("http://qref.herokuapp.com/"+value, function(f) {
+				if (!f.data) {
+					return;
+				}
+
+				for (var i=0; i < f.data.length; i++) {
+					folders[f.data[i]] = null;
+				}
+
+				$('#folder').autocomplete({
+				    data: folders
+				});
+			});
+		};
+		$(document).ready(function () {
+			$("#form").on('submit', function(e) {
+				console.log("e");
+				e.preventDefault();
+				var name = $("#name").val();
+				var folder = $("#folder").val();
+				var link = $("#link").val();
+
+				if (!name || !folder || !link) {
+					return;
+				}
+
+				$.get(name+'/'+folder+'/a?l='+link, function(data) {
+					if (data) {
+						$("#name").val("");
+						$("#folder").val("");
+						$("#link").val("");
+					}
+				});
+			});
+		});
+	</script>
+</body>
+</html>
