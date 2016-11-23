@@ -1,10 +1,11 @@
 # qref
+[![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
 A url for storing your links quickly, without a login
 
 #Usage
 qref uses names and folders to store links. Thats it.
 
-####Store a new link: 
+####Store a new link:
 ```
 http://h.garretmeier.com/:NAME/:FOLDER/a?l=:LINK
 ```
@@ -20,4 +21,4 @@ Where `:NAME` is the name you use to store links
 ```
 http://h.garretmeier.com/:NAME/:FOLDER
 ```
-Where `:NAME` is the name you use to store links and `:FOLDER` is the folder to view. 
+Where `:NAME` is the name you use to store links and `:FOLDER` is the folder to view.
